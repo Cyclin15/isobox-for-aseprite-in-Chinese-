@@ -44,6 +44,10 @@
   Usage:
     + Go to `File → Scripts → [KAM] Isometric Box` to run the script
     + You can also setup a custom hotkey under `Edit → Keyboard Shortcuts`
+  
+
+    汉化：Cyclin
+    E-mail：cyclin15@foxmail.com
     
 -----------------------------------------------------------------------]]
 
@@ -254,30 +258,30 @@ end
 ---------------------------------------
 -- USER INTERFACE --
 ---------------------------------------
-local dlg = Dialog("[KAM] Isometric Box")
-dlg   :separator{ text="Size:" }
-      :slider {id="ySize", label="Left:", min=1, max=maxSize.y, value=5}
-      :slider {id="xSize", label="Right:", min=1, max=maxSize.x, value=5}
-      :slider {id="zSize", label="Height:", min=3, max=maxSize.z, value=10}
+local dlg = Dialog("[KAM]等距盒")
+dlg   :separator{ text="大小:" }
+      :slider {id="ySize", label="左边长:", min=1, max=maxSize.y, value=5}
+      :slider {id="xSize", label="右边长:", min=1, max=maxSize.x, value=5}
+      :slider {id="zSize", label="高度:", min=3, max=maxSize.z, value=10}
 
-      :separator{ text="Colors:" }
-      :color {id="color", label="Stroke:", color = colors.stroke}
-      :color {id="topColor", label="Top:", color = colors.top}
-      :color {id="leftColor", label="Left:", color = colors.left}
-      :color {id="rightColor", label="Right:", color = colors.right}
-      :color {id="highlightColor", label="Highlight:", color = colors.highlight}
+      :separator{ text="颜色:" }
+      :color {id="color", label="边框:", color = colors.stroke}
+      :color {id="topColor", label="上侧:", color = colors.top}
+      :color {id="leftColor", label="左侧:", color = colors.left}
+      :color {id="rightColor", label="右侧:", color = colors.right}
+      :color {id="highlightColor", label="高光:", color = colors.highlight}
 
       :separator()
-      :radio {id="typeOne", label="Corner:", text="3 px", selected=use3pxCorner}
+      :radio {id="typeOne", label="转角:", text="3 px", selected=use3pxCorner}
       :radio {id="typeTwo", text="2 px", selected=not use3pxCorner}
 
       :separator()
-      :button {id="ok", text="Add Box",onclick=function()
+      :button {id="ok", text="添加",onclick=function()
           local data = dlg.data
           app.transaction(function()
             local cubeType = data.typeOne and 1 or 2
 
-            newLayer("Cube("..data.xSize.." "..data.ySize.." "..data.zSize..")")
+            newLayer("方块("..data.xSize.." "..data.ySize.." "..data.zSize..")")
             drawCube(cubeType, data.xSize, data.ySize, data.zSize, data.color)
             fillCubeSides(data.topColor, data.leftColor, data.rightColor)
             addHighlight(cubeType, data.xSize, data.ySize, data.zSize, data.highlightColor)
